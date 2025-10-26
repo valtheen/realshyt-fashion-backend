@@ -35,6 +35,9 @@ public class Order {
     @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount;
     
+    @Column(length = 3, nullable = false)
+    private String currency = "IDR";
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus status = OrderStatus.PENDING;
@@ -59,7 +62,12 @@ public class Order {
         updatedAt = LocalDateTime.now();
     }
     
+    // Helper method for backward compatibility with PaymentService
+    public BigDecimal getTotalPrice() {
+        return totalAmount != null ? totalAmount : BigDecimal.ZERO;
+    }
+    
     public enum OrderStatus {
-        PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+        PENDING, PENDING_PAYMENT, PROCESSING, SHIPPED, DELIVERED, CANCELLED
     }
 }

@@ -34,6 +34,9 @@ public class OrderItem {
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
     
+    @Column(length = 3, nullable = false)
+    private String currency = "IDR";
+    
     @PrePersist
     @PreUpdate
     public void calculateSubtotal() {

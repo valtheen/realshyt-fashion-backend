@@ -24,6 +24,9 @@ public class Product {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
     
+    @Column(length = 3, nullable = false)
+    private String currency = "IDR";
+    
     @Column(length = 1000)
     private String description;
     
